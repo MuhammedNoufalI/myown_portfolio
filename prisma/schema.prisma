@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(uuid())
+  username String @unique
+  password String // Hashed
+}
+
+model Profile {
+  id           String   @id @default(uuid())
+  fullName     String
+  headline     String
+  bio          String
+  email        String
+  phone        String?
+  location     String?
+  linkedinUrl  String?
+  githubUrl    String?
+  twitterUrl   String?
+  availability String?  // e.g., "Open to work"
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Job {
+  id          String   @id @default(uuid())
+  company     String
+  position    String
+  startDate   DateTime
+  endDate     DateTime? // Null means "Present"
+  description String
+  location    String?
+  technologies String? // Comma separated or JSON
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  imageUrl    String?
+  demoUrl     String?
+  repoUrl     String?
+  technologies String? // Comma separated
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Blog {
+  id        String   @id @default(uuid())
+  title     String
+  slug      String   @unique
+  content   String
+  excerpt   String?
+  coverImage String?
+  tags      String?  // Comma separated
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Certification {
+  id        String   @id @default(uuid())
+  name      String
+  issuer    String
+  issueDate DateTime
+  credentialUrl String?
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
