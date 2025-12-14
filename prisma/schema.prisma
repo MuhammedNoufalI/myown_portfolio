@@ -24,6 +24,7 @@ model Profile {
   linkedinUrl  String?
   githubUrl    String?
   imageUrl     String? // New field
+  logoUrl      String? // Website Logo
   themeColor   String @default("purple")
   twitterUrl   String?
   availability String?  // e.g., "Open to work"

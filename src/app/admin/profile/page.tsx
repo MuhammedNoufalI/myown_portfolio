@@ -14,13 +14,19 @@ async function updateProfile(formData: FormData) {
     const githubUrl = formData.get('githubUrl') as string
     const themeColor = formData.get('themeColor') as string
     const imageFile = formData.get('image') as File | null
+    const logoFile = formData.get('logo') as File | null
 
     let imageUrl = undefined
     if (imageFile && imageFile.size > 0) {
         imageUrl = await saveFile(imageFile)
     }
 
-    await prisma.profile.update({
+    let logoUrl = undefined
+    if (logoFile && logoFile.size > 0) {
+        logoUrl = await saveFile(logoFile)
+    }
+
+    await (prisma as any).profile.update({
         where: { id },
         data: {
             fullName,
@@ -32,6 +38,7 @@ async function updateProfile(formData: FormData) {
             githubUrl,
             themeColor,
             imageUrl,
+            logoUrl,
         },
     })
 

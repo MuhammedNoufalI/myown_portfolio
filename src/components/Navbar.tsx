@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 
-export default function Navbar() {
+export default function Navbar({ logoUrl }: { logoUrl?: string | null }) {
     const [isOpen, setIsOpen] = useState(false)
     const pathname = usePathname()
 
@@ -23,8 +23,12 @@ export default function Navbar() {
         <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-white/5">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
-                    <Link href="/" className="text-xl font-bold bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-purple-500 tracking-tighter">
-                        &lt;DevOps /&gt;
+                    <Link href="/" className="text-xl font-bold bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-purple-500 tracking-tighter flex items-center gap-2">
+                        {logoUrl ? (
+                            <img src={logoUrl} alt="Logo" className="h-8 w-8 object-contain" />
+                        ) : (
+                            <span>&lt;DevOps /&gt;</span>
+                        )}
                     </Link>
 
                     {/* Desktop Nav */}
@@ -68,8 +72,8 @@ export default function Navbar() {
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
                                 className={`block px-3 py-2 rounded-md text-base font-medium ${pathname === link.href
-                                        ? 'bg-blue-500/10 text-blue-400'
-                                        : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                                    ? 'bg-blue-500/10 text-blue-400'
+                                    : 'text-gray-300 hover:bg-white/5 hover:text-white'
                                     }`}
                             >
                                 {link.label}

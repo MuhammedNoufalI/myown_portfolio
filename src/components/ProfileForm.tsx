@@ -81,21 +81,41 @@ export default function ProfileForm({ profile, updateProfileAction }: ProfileFor
                         </div>
                     </div>
 
-                    <div className="col-span-2">
-                        <label className="block text-sm font-medium mb-2 text-gray-700">Profile Image</label>
-                        <div className="flex gap-4 items-center mb-2">
-                            {previewUrl && (
-                                <img src={previewUrl} alt="Preview" className="w-16 h-16 rounded-full object-cover border border-gray-300 shadow-sm" />
-                            )}
-                            <div className="flex-1">
-                                <input
-                                    ref={fileInputRef}
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={onFileChange}
-                                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
-                                />
-                                <p className="text-xs text-gray-500 mt-1">Select an image to resize and crop.</p>
+                    <div className="col-span-2 grid grid-cols-2 gap-8">
+                        <div className="">
+                            <label className="block text-sm font-medium mb-2 text-gray-700">Profile Image</label>
+                            <div className="flex gap-4 items-center mb-2">
+                                {previewUrl && (
+                                    <img src={previewUrl} alt="Preview" className="w-16 h-16 rounded-full object-cover border border-gray-300 shadow-sm" />
+                                )}
+                                <div className="flex-1">
+                                    <input
+                                        ref={fileInputRef}
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={onFileChange}
+                                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
+                                    />
+                                    <p className="text-xs text-gray-500 mt-1">Select an image to resize and crop.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="">
+                            <label className="block text-sm font-medium mb-2 text-gray-700">Website Logo (Favicon)</label>
+                            <div className="flex gap-4 items-center mb-2">
+                                {(profile as any).logoUrl && (
+                                    <img src={(profile as any).logoUrl} alt="Logo" className="w-16 h-16 object-contain border border-gray-300 shadow-sm p-2 bg-gray-50 rounded-lg" />
+                                )}
+                                <div className="flex-1">
+                                    <input
+                                        name="logo"
+                                        type="file"
+                                        accept="image/*"
+                                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 cursor-pointer"
+                                    />
+                                    <p className="text-xs text-gray-500 mt-1">Square image (PNG/JPG) recommended.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
