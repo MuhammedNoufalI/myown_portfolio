@@ -2,6 +2,7 @@
 import { prisma } from '@/lib/prisma'
 import { updateBlog } from '../../actions'
 import { notFound } from 'next/navigation'
+import MarkdownEditor from '@/components/MarkdownEditor'
 
 interface PageProps {
     params: Promise<{ id: string }>
@@ -41,7 +42,7 @@ export default async function EditBlog({ params }: PageProps) {
 
                 <div>
                     <label className="block text-sm font-medium mb-2">Content (Markdown)</label>
-                    <textarea name="content" defaultValue={blog.content} required rows={15} className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent font-mono text-sm" />
+                    <MarkdownEditor name="content" initialValue={blog.content} />
                 </div>
 
                 <div className="flex justify-end gap-4 pt-4">

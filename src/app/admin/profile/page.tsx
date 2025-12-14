@@ -12,6 +12,7 @@ async function updateProfile(formData: FormData) {
     const phone = formData.get('phone') as string
     const linkedinUrl = formData.get('linkedinUrl') as string
     const githubUrl = formData.get('githubUrl') as string
+    const imageUrl = formData.get('imageUrl') as string
 
     await prisma.profile.update({
         where: { id },
@@ -23,6 +24,7 @@ async function updateProfile(formData: FormData) {
             phone,
             linkedinUrl,
             githubUrl,
+            imageUrl,
         },
     })
 
@@ -42,6 +44,12 @@ export default async function AdminProfile() {
 
             <form action={updateProfile} className="space-y-6 bg-white dark:bg-gray-800 p-8 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
                 <input type="hidden" name="id" value={profile.id} />
+
+                <div className="col-span-2">
+                    <label className="block text-sm font-medium mb-2">Profile Image URL</label>
+                    <input name="imageUrl" type="url" defaultValue={profile.imageUrl || ''} className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent" placeholder="https://example.com/me.jpg" />
+                    <p className="text-xs text-gray-500 mt-1">Provide a direct link to your photo.</p>
+                </div>
 
                 <div>
                     <label className="block text-sm font-medium mb-2">Full Name</label>

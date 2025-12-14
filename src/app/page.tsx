@@ -14,10 +14,18 @@ export default async function Home() {
     <div className="min-h-screen flex flex-col items-center justify-center p-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 items-center text-center max-w-2xl">
         <div className="flex flex-col items-center gap-4">
-          {/* Placeholder for Image - use a nice avatar style */}
-          <div className="w-32 h-32 rounded-full bg-linear-to-tr from-blue-500 to-teal-500 flex items-center justify-center text-4xl font-bold text-white shadow-lg">
-            {profile.fullName.charAt(0)}
-          </div>
+          {/* Profile Image */}
+          {profile.imageUrl ? (
+            <img
+              src={profile.imageUrl}
+              alt={profile.fullName}
+              className="w-32 h-32 rounded-full object-cover border-4 border-white dark:border-gray-800 shadow-xl"
+            />
+          ) : (
+            <div className="w-32 h-32 rounded-full bg-linear-to-tr from-blue-500 to-teal-500 flex items-center justify-center text-4xl font-bold text-white shadow-lg">
+              {profile.fullName.charAt(0)}
+            </div>
+          )}
 
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight">
             Hi, I'm <span className="text-blue-600 dark:text-blue-400">{profile.fullName}</span>

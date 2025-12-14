@@ -1,5 +1,6 @@
 
 import { createBlog } from '../../actions'
+import MarkdownEditor from '@/components/MarkdownEditor'
 
 export default function NewBlog() {
     return (
@@ -30,7 +31,7 @@ export default function NewBlog() {
 
                 <div>
                     <label className="block text-sm font-medium mb-2">Content (Markdown supported)</label>
-                    <textarea name="content" required rows={15} className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent font-mono text-sm" placeholder="# Hello World..." />
+                    <MarkdownEditor name="content" placeholder="# Hello World..." />
                 </div>
 
                 <div className="flex justify-end gap-4 pt-4">

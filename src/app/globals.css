@@ -1,21 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Matrix/DevOps Neon Palette */
+  --background: #0d1117; /* Dark GitHub-like background */
+  --foreground: #c9d1d9;
+  
+  --primary: #58a6ff;    /* Cool Blue */
+  --secondary: #238636;  /* Success Green */
+  --accent: #f78166;     /* Orange Accent */
+  
+  --card-bg: #161b22;
+  --border-color: #30363d;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
+  /* Keeping light mode simple but professional, though user prefers dark */
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #0d1117;
+    --card-bg: #f6f8fa;
+    --border-color: #d0d7de;
   }
 }
 
@@ -23,4 +39,32 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Utilities for Neon Glow */
+.glow-text {
+  text-shadow: 0 0 10px rgba(88, 166, 255, 0.5);
+}
+
+.glow-box {
+  box-shadow: 0 0 15px rgba(88, 166, 255, 0.1);
+}
+
+/* Scrollbar for terminal vibe */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background); 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #30363d; 
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #58a6ff; 
 }

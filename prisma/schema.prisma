@@ -23,6 +23,7 @@ model Profile {
   location     String?
   linkedinUrl  String?
   githubUrl    String?
+  imageUrl     String? // New field
   twitterUrl   String?
   availability String?  // e.g., "Open to work"
   createdAt    DateTime @default(now())
@@ -62,7 +63,7 @@ model Blog {
   excerpt   String?
   coverImage String?
   tags      String?  // Comma separated
-  published Boolean  @default(false)
+  published Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
