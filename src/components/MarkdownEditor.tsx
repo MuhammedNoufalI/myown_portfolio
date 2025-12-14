@@ -4,6 +4,7 @@
 import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
+import rehypeRaw from 'rehype-raw'
 import 'highlight.js/styles/github-dark.css' // Import highlight styles
 
 interface MarkdownEditorProps {
@@ -23,8 +24,8 @@ export default function MarkdownEditor({ initialValue = '', name, placeholder }:
                     type="button"
                     onClick={() => setActiveTab('write')}
                     className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === 'write'
-                            ? 'bg-white dark:bg-gray-800 border-b-2 border-blue-500 text-blue-600 dark:text-blue-400'
-                            : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                        ? 'bg-white dark:bg-gray-800 border-b-2 border-blue-500 text-blue-600 dark:text-blue-400'
+                        : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
                         }`}
                 >
                     Write
@@ -33,8 +34,8 @@ export default function MarkdownEditor({ initialValue = '', name, placeholder }:
                     type="button"
                     onClick={() => setActiveTab('preview')}
                     className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === 'preview'
-                            ? 'bg-white dark:bg-gray-800 border-b-2 border-blue-500 text-blue-600 dark:text-blue-400'
-                            : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                        ? 'bg-white dark:bg-gray-800 border-b-2 border-blue-500 text-blue-600 dark:text-blue-400'
+                        : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
                         }`}
                 >
                     Preview
@@ -59,7 +60,7 @@ export default function MarkdownEditor({ initialValue = '', name, placeholder }:
                     <label className="text-xs font-semibold uppercase text-gray-400 mb-2">Live Preview</label>
                     <div className="flex-1 overflow-y-auto p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 prose prose-sm dark:prose-invert max-w-none">
                         {content ? (
-                            <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{content}</ReactMarkdown>
+                            <ReactMarkdown rehypePlugins={[rehypeHighlight, rehypeRaw]}>{content}</ReactMarkdown>
                         ) : (
                             <p className="text-gray-400 italic">Nothing to preview yet...</p>
                         )}

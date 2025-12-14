@@ -4,6 +4,7 @@
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { saveFile } from '@/lib/upload'
 
 // --- Jobs ---
 
@@ -120,4 +121,71 @@ export async function deleteBlog(id: string) {
     await prisma.blog.delete({ where: { id } })
     revalidatePath('/blog')
     revalidatePath('/admin/blogs')
+}
+
+// --- Messages (Contact Form) ---
+
+export async function submitMessage(formData: FormData) {
+    const name = formData.get('name') as string
+    const email = formData.get('email') as string
+    const content = formData.get('message') as string
+
+    await (prisma as any).message.create({
+        data: {
+            name,
+            email,
+            content,
+        }
+    })
+
+    // Telegram Notification
+    const botToken = process.env.TELEGRAM_BOT_TOKEN
+    const chatId = process.env.TELEGRAM_CHAT_ID
+
+    console.log('[Telegram Debug] Env Vars:', {
+        hasToken: !!botToken,
+        hasChatId: !!chatId,
+        tokenStart: botToken ? botToken.substring(0, 5) : 'N/A'
+    })
+
+    if (botToken && chatId) {
+        try {
+            const text = `📩 *New Contact Message*\n\n*Name:* ${name}\n*Email:* ${email}\n\n*Message:*\n${content}`
+            const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: text,
+                    parse_mode: 'Markdown'
+                })
+            })
+
+            const resText = await response.text()
+            console.log('[Telegram Debug] API Response:', response.status, resText)
+
+        } catch (error) {
+            console.error('[Telegram Debug] Failed to send Telegram notification:', error)
+        }
+    } else {
+        console.warn('[Telegram Debug] Missing Telegram keys in .env')
+    }
+
+    revalidatePath('/admin/messages')
+}
+
+export async function deleteMessage(id: string) {
+    await (prisma as any).message.delete({ where: { id } })
+    revalidatePath('/admin/messages')
+}
+
+export async function markMessageRead(id: string) {
+    const msg = await (prisma as any).message.findUnique({ where: { id } })
+    if (msg) {
+        await (prisma as any).message.update({
+            where: { id },
+            data: { read: !msg.read }
+        })
+        revalidatePath('/admin/messages')
+    }
 }

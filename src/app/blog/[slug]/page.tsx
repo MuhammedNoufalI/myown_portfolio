@@ -2,6 +2,7 @@
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
 import { Calendar, Tag, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
@@ -31,7 +32,7 @@ export default async function BlogPost({ params }: PageProps) {
                     <Calendar size={14} />
                     {new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                 </div>
-                <h1 className="text-3xl sm:text-5xl font-bold leading-tight mb-6 text-gray-900 dark:text-white">
+                <h1 className="text-3xl sm:text-5xl font-black mb-6 leading-tight bg-clip-text text-transparent bg-linear-to-r from-cyan-200 via-blue-400 to-purple-400 drop-shadow-md">
                     {post.title}
                 </h1>
 
@@ -48,7 +49,7 @@ export default async function BlogPost({ params }: PageProps) {
 
             {/* Blog Content */}
             <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:underline">
-                <ReactMarkdown>{post.content}</ReactMarkdown>
+                <ReactMarkdown rehypePlugins={[rehypeRaw]}>{post.content}</ReactMarkdown>
             </div>
         </div>
     )

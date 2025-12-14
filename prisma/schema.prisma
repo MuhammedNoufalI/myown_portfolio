@@ -24,6 +24,7 @@ model Profile {
   linkedinUrl  String?
   githubUrl    String?
   imageUrl     String? // New field
+  themeColor   String @default("purple")
   twitterUrl   String?
   availability String?  // e.g., "Open to work"
   createdAt    DateTime @default(now())
@@ -77,4 +78,13 @@ model Certification {
   imageUrl  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  content   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
 }
