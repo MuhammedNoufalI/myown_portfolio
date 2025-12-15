@@ -155,6 +155,38 @@ export default function ProfileForm({ profile, updateProfileAction }: ProfileFor
                     </div>
                 </div>
 
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-8 mt-8">
+                    <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                        <span className="w-2 h-8 bg-purple-500 rounded-full"></span>
+                        Blog Settings
+                    </h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label className="block text-sm font-medium mb-2 opacity-70">Blog Title</label>
+                            <input name="blogTitle" type="text" defaultValue={(profile as any).blogTitle || 'Blog'} className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent font-bold" />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium mb-2 opacity-70">Blog Slogan / Headline</label>
+                            <input name="blogHeadline" type="text" defaultValue={(profile as any).blogHeadline || ''} className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent" placeholder="Insights about Cloud & DevOps" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium mb-2 opacity-70">Header Gradient Style</label>
+                        <select name="blogGradient" defaultValue={(profile as any).blogGradient || 'from-blue-400 to-purple-500'} className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 cursor-pointer">
+                            <option value="from-blue-400 to-purple-500">Blue to Purple (Default)</option>
+                            <option value="from-purple-400 via-pink-400 to-red-400">Sunset Neon (Purple-Pink-Red)</option>
+                            <option value="from-green-400 to-blue-500">Ocean (Green-Blue)</option>
+                            <option value="from-yellow-400 via-orange-500 to-red-500">Fire (Yellow-Orange-Red)</option>
+                            <option value="from-cyan-400 via-blue-500 to-purple-600">Cyberpunk (Cyan-Blue-Purple)</option>
+                            <option value="from-pink-500 via-red-500 to-yellow-500">Heat (Pink-Red-Yellow)</option>
+                            <option value="from-gray-200 via-gray-400 to-gray-600">Monochrome (Silver)</option>
+                        </select>
+                        <p className="text-xs text-gray-500 mt-2">Required: Use Tailwind gradient classes (from-X to-Y).</p>
+                    </div>
+                </div>
+
                 <div className="flex justify-end pt-4 border-t border-gray-100">
                     <button type="submit" className="px-8 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors shadow-sm active:scale-95 transform">Update Profile</button>
                 </div>

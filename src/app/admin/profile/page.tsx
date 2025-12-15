@@ -39,6 +39,9 @@ async function updateProfile(formData: FormData) {
             themeColor,
             imageUrl,
             logoUrl,
+            blogTitle: formData.get('blogTitle') as string,
+            blogHeadline: formData.get('blogHeadline') as string,
+            blogGradient: formData.get('blogGradient') as string,
         },
     })
 

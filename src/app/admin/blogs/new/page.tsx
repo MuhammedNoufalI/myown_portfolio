@@ -1,6 +1,7 @@
 
 import { createBlog } from '../../actions'
-import MarkdownEditor from '@/components/MarkdownEditor'
+import BlogContentBuilder from '@/components/BlogContentBuilder'
+import DynamicList from '@/components/DynamicList'
 
 export default function NewBlog() {
     return (
@@ -30,8 +31,17 @@ export default function NewBlog() {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium mb-2">Content (Markdown supported)</label>
-                    <MarkdownEditor name="content" placeholder="# Hello World..." />
+                    <label className="block text-sm font-medium mb-2">Content Builder</label>
+                    <BlogContentBuilder name="content" />
+                </div>
+
+                <div>
+                    <DynamicList name="references" title="References" />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium mb-2">Advertising (HTML or Text)</label>
+                    <textarea name="advertising" rows={3} className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent" placeholder="Ad code or promotional text..." />
                 </div>
 
                 <div className="flex justify-end gap-4 pt-4">

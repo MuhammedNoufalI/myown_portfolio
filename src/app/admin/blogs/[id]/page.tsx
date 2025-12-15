@@ -2,7 +2,8 @@
 import { prisma } from '@/lib/prisma'
 import { updateBlog } from '../../actions'
 import { notFound } from 'next/navigation'
-import MarkdownEditor from '@/components/MarkdownEditor'
+import BlogContentBuilder from '@/components/BlogContentBuilder'
+import DynamicList from '@/components/DynamicList'
 
 interface PageProps {
     params: Promise<{ id: string }>
@@ -41,8 +42,19 @@ export default async function EditBlog({ params }: PageProps) {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium mb-2">Content (Markdown)</label>
-                    <MarkdownEditor name="content" initialValue={blog.content} />
+                    <label className="block text-sm font-medium mb-2">Content Builder</label>
+                    {/* @ts-expect-error JSON handling */}
+                    <BlogContentBuilder name="content" initialContent={blog.content} />
+                </div>
+
+                <div>
+                    {/* @ts-expect-error JSON handling */}
+                    <DynamicList name="references" title="References" initialData={blog.references} />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium mb-2">Advertising (HTML or Text)</label>
+                    <textarea name="advertising" defaultValue={blog.advertising || ''} rows={3} className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-transparent" placeholder="Ad code or promotional text..." />
                 </div>
 
                 <div className="flex justify-end gap-4 pt-4">

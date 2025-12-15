@@ -28,6 +28,12 @@ model Profile {
   themeColor   String @default("purple")
   twitterUrl   String?
   availability String?  // e.g., "Open to work"
+  
+  // Blog Configuration
+  blogTitle    String   @default("Blog")
+  blogHeadline String?
+  blogGradient String?  // CSS class or value
+
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
@@ -64,6 +70,8 @@ model Blog {
   content   String
   excerpt   String?
   coverImage String?
+  references String? // New field for references/links
+  advertising String? // New field for ads
   tags      String?  // Comma separated
   published Boolean  @default(true)
   createdAt DateTime @default(now())

@@ -74,9 +74,11 @@ export async function deleteJob(id: string) {
 export async function createBlog(formData: FormData) {
     const title = formData.get('title') as string
     const slug = formData.get('slug') as string
-    const content = formData.get('content') as string // Markdown
+    const content = formData.get('content') as string
     const excerpt = formData.get('excerpt') as string
     const tags = formData.get('tags') as string
+    const references = formData.get('references') as string
+    const advertising = formData.get('advertising') as string
 
     await prisma.blog.create({
         data: {
@@ -85,6 +87,8 @@ export async function createBlog(formData: FormData) {
             content,
             excerpt,
             tags,
+            references,
+            advertising,
             published: true // auto publish for now
         }
     })
@@ -100,6 +104,8 @@ export async function updateBlog(id: string, formData: FormData) {
     const content = formData.get('content') as string
     const excerpt = formData.get('excerpt') as string
     const tags = formData.get('tags') as string
+    const references = formData.get('references') as string
+    const advertising = formData.get('advertising') as string
 
     await prisma.blog.update({
         where: { id },
@@ -109,6 +115,8 @@ export async function updateBlog(id: string, formData: FormData) {
             content,
             excerpt,
             tags,
+            references,
+            advertising,
         }
     })
 
