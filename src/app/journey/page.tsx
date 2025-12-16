@@ -51,7 +51,7 @@ export default async function Journey() {
 
                                 {job.technologies && (
                                     <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-purple-500/10">
-                                        {job.technologies.split(/,|;/).map((tech, i) => (
+                                        {job.technologies.split(/,|;/).map((tech: string, i) => (
                                             <span key={i} className="px-2 py-1 text-[10px] sm:text-xs font-semibold bg-purple-900/20 text-purple-300 rounded-md border border-purple-500/20 shadow-sm hover:bg-purple-500/20 transition-colors">
                                                 {tech.trim()}
                                             </span>
