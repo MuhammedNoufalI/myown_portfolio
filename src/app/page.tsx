@@ -23,14 +23,13 @@ export default async function Home() {
       <main className="flex flex-col gap-12 items-center text-center max-w-4xl w-full">
 
         {/* Hero Section */}
-        <div className="flex flex-col items-center gap-6 animate-in fade-in zoom-in duration-700">
-          <div className="relative group">
-            <div className="absolute -inset-1 bg-linear-to-r from-cyan-400 to-purple-600 rounded-full blur-md opacity-75 group-hover:opacity-100 transition duration-500"></div>
+        <div className="flex flex-col items-center animate-in fade-in zoom-in duration-700">
+          <div className="relative group -mb-24 sm:-mb-32 z-0 pointer-events-none select-none">
             {profile.imageUrl ? (
               <img
                 src={profile.imageUrl}
                 alt={profile.fullName}
-                className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full object-cover shadow-2xl"
+                className="relative w-64 h-64 sm:w-[500px] sm:h-[500px] object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500 opacity-90"
               />
             ) : (
               <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full bg-gray-800/50 flex items-center justify-center text-5xl font-bold text-gray-500">
@@ -39,8 +38,8 @@ export default async function Home() {
             )}
           </div>
 
-          <div className="space-y-4">
-            <h1 className="text-5xl sm:text-7xl font-black tracking-tight mb-2 bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-purple-500">
+          <div className="space-y-4 relative z-10 text-center">
+            <h1 className="text-5xl sm:text-7xl font-black tracking-tight mb-2 bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-purple-500 drop-shadow-md">
               Hi, I'm <span className="">{profile.fullName}</span>
             </h1>
             <p className="text-2xl sm:text-3xl text-gray-300 font-light">
