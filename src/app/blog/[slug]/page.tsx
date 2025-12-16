@@ -38,7 +38,7 @@ export default async function BlogPost({ params }: PageProps) {
 
                 {post.tags && (
                     <div className="flex gap-2">
-                        {post.tags.split(',').map(tag => (
+                        {post.tags.split(',').map((tag: string) => (
                             <span key={tag} className="flex items-center gap-1 text-xs px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full border border-blue-100 dark:border-blue-800/50">
                                 <Tag size={12} /> {tag.trim()}
                             </span>

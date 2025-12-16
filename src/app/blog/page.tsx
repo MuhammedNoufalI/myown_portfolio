@@ -86,7 +86,7 @@ export default async function BlogList(props: {
 
                                         {post.tags && (
                                             <div className="flex gap-2 flex-wrap">
-                                                {post.tags.split(',').map(tag => (
+                                                {post.tags.split(',').map((tag: string) => (
                                                     <span key={tag} className="inline-flex items-center gap-1 text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-gray-700 dark:text-gray-300">
                                                         <Tag size={10} /> {tag.trim()}
                                                     </span>
