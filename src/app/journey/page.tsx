@@ -1,6 +1,7 @@
 
 import { prisma } from '@/lib/prisma'
 import { Briefcase, Calendar, MapPin, Award } from 'lucide-react'
+import { Job, Certification } from '@prisma/client'
 
 export default async function Journey() {
     const jobs = await prisma.job.findMany({
@@ -22,7 +23,7 @@ export default async function Journey() {
                 </h2>
 
                 <div className="relative border-l-2 border-gray-800 ml-3 sm:ml-6 space-y-12">
-                    {jobs.map((job) => (
+                    {jobs.map((job: Job) => (
                         <div key={job.id} className="ml-6 sm:ml-12 relative group">
                             <span className="absolute -left-[39px] sm:-left-[59px] top-6 bg-purple-600 w-6 h-6 rounded-full border-4 border-[#05010d] shadow-sm shadow-purple-500/50 z-10"></span>
 
@@ -70,7 +71,7 @@ export default async function Journey() {
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {certs.map((cert) => (
+                    {certs.map((cert: Certification) => (
                         <div key={cert.id} className="p-6 rounded-xl bg-[#120822]/80 border border-purple-500/10 hover:border-purple-500/40 shadow-sm hover:shadow-lg hover:shadow-purple-500/10 transition-all flex gap-4 items-start backdrop-blur-sm">
                             <div className="p-3 bg-amber-900/20 rounded-lg text-amber-500">
                                 <Award size={24} />
