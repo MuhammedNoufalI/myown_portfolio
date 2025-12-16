@@ -103,7 +103,7 @@ export default async function Home() {
           <div className="w-full mt-16 pt-16 border-t border-white/5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300 relative z-20">
             <h2 className="text-2xl font-bold mb-8 text-gray-200">Latest Certifications</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-              {certs.map(cert => (
+              {certs.map((cert: Certification) => (
                 <div key={cert.id} className="group flex flex-col items-center gap-3 p-4 rounded-xl bg-[#161b22] border border-white/5 hover:border-blue-500/30 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/10">
                   {cert.imageUrl ? (
                     <img src={cert.imageUrl} alt={cert.name} className="w-16 h-16 object-contain drop-shadow-md" />
