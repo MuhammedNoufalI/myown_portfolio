@@ -12,8 +12,8 @@ export default async function Journey() {
     })
 
     return (
-        <div className="min-h-screen p-8 sm:p-20 font-[family-name:var(--font-geist-sans)] max-w-5xl mx-auto">
-            <h1 className="text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-purple-500">My Professional Journey</h1>
+        <div className="min-h-screen p-8 sm:p-20 font-[family-name:var(--font-geist-sans)] max-w-5xl mx-auto pt-24">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-purple-500">My Professional Journey</h1>
 
             <section className="mb-20">
                 <h2 className="text-2xl font-semibold mb-8 flex items-center gap-3 border-b pb-4 border-gray-800 text-gray-100">

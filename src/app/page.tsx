@@ -19,17 +19,17 @@ export default async function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center p-8 sm:p-20 font-[family-name:var(--font-geist-sans)] pt-24">
+    <div className="min-h-screen flex flex-col justify-center items-center p-8 sm:p-20 font-[family-name:var(--font-geist-sans)] pt-24 overflow-hidden">
       <main className="flex flex-col gap-12 items-center text-center max-w-4xl w-full">
 
         {/* Hero Section */}
         <div className="flex flex-col items-center animate-in fade-in zoom-in duration-700">
-          <div className="relative group -mb-24 sm:-mb-32 z-0 pointer-events-none select-none">
+          <div className="relative group -mb-4 sm:-mb-32 z-0 pointer-events-none select-none">
             {profile.imageUrl ? (
               <img
                 src={profile.imageUrl}
                 alt={profile.fullName}
-                className="relative w-64 h-64 sm:w-[500px] sm:h-[500px] object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500 opacity-90"
+                className="relative w-64 h-64 sm:w-[500px] sm:h-[500px] object-contain sm:drop-shadow-2xl mix-blend-lighten"
               />
             ) : (
               <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full bg-gray-800/50 flex items-center justify-center text-5xl font-bold text-gray-500">
@@ -56,47 +56,47 @@ export default async function Home() {
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-wrap gap-4 justify-center mt-4">
+        <div className="flex flex-wrap gap-4 justify-center mt-4 relative z-20">
           <Link
             href="/journey"
-            className="group relative px-8 py-3 rounded-full bg-linear-to-r from-blue-600 to-cyan-500 text-white font-semibold shadow-lg shadow-blue-500/25 hover:shadow-cyan-500/40 hover:scale-105 active:scale-95 flex items-center gap-2 transition-all"
+            className="group relative px-8 py-3 rounded-full bg-linear-to-r from-blue-600 to-cyan-500 text-white font-semibold shadow-lg shadow-blue-500/25 hover:shadow-cyan-500/50 hover:scale-105 active:scale-95 flex items-center gap-2 transition-all duration-300"
           >
             View Journey <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link
             href="/blog"
-            className="px-8 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-500 text-white font-semibold shadow-lg shadow-purple-500/25 hover:shadow-pink-500/40 hover:scale-105 active:scale-95 transition-all"
+            className="px-8 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-500 text-white font-semibold shadow-lg shadow-purple-500/25 hover:shadow-pink-500/50 hover:scale-105 active:scale-95 transition-all duration-300"
           >
             Read Blog
           </Link>
           <Link
             href="/contact"
-            className="px-8 py-3 rounded-full bg-linear-to-r from-indigo-600 to-blue-600 text-white font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-blue-500/40 hover:scale-105 active:scale-95 transition-all"
+            className="px-8 py-3 rounded-full bg-linear-to-r from-indigo-600 to-blue-600 text-white font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-blue-500/50 hover:scale-105 active:scale-95 transition-all duration-300"
           >
             Contact
           </Link>
         </div>
 
         {/* Social Links */}
-        <div className="flex gap-6 mt-4 opacity-80 hover:opacity-100 transition-opacity">
+        <div className="flex gap-6 mt-4 opacity-80 hover:opacity-100 transition-opacity relative z-20">
           {profile.linkedinUrl && (
-            <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#0077b5] transition-colors transform hover:-translate-y-1">
+            <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#0077b5] transition-all transform hover:-translate-y-1">
               <Linkedin size={28} />
             </a>
           )}
           {profile.githubUrl && (
-            <a href={profile.githubUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors transform hover:-translate-y-1">
+            <a href={profile.githubUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-all transform hover:-translate-y-1">
               <Github size={28} />
             </a>
           )}
-          <a href={`mailto:${profile.email}`} className="text-gray-400 hover:text-red-400 transition-colors transform hover:-translate-y-1">
+          <a href={`mailto:${profile.email}`} className="text-gray-400 hover:text-red-400 transition-all transform hover:-translate-y-1">
             <Mail size={28} />
           </a>
         </div>
 
         {/* Certifications Preview */}
         {certs.length > 0 && (
-          <div className="w-full mt-16 pt-16 border-t border-white/5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+          <div className="w-full mt-16 pt-16 border-t border-white/5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300 relative z-20">
             <h2 className="text-2xl font-bold mb-8 text-gray-200">Latest Certifications</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
               {certs.map(cert => (
