@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
 import { deleteBlog } from '../actions'
+import { Blog } from '@prisma/client'
 
 export default async function AdminBlogs() {
     const blogs = await prisma.blog.findMany({
@@ -30,7 +31,7 @@ export default async function AdminBlogs() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                        {blogs.map((blog) => (
+                        {blogs.map((blog: Blog) => (
                             <tr key={blog.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
                                 <td className="px-6 py-4 font-medium">{blog.title}</td>
                                 <td className="px-6 py-4 text-sm text-gray-500">
