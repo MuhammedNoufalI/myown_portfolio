@@ -35,28 +35,30 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-## 🚀 Deployment (Ubuntu Server)
+## 🚀 Deployment (Ubuntu 24.04 LTS)
 
-Follow these steps to deploy this portfolio on a dedicated Ubuntu server.
+Follow these steps to deploy this portfolio on a fresh Ubuntu 24 server.
 
-### 1. Prerequisites
-Ensure your server has **Node.js 18+** installed.
+### 1. Prerequisites & System Update
 ```bash
-# Update and install curl
-sudo apt update && sudo apt install -y curl
+# Update system packages
+sudo apt update && sudo apt upgrade -y
 
-# Install Node.js 20 (LTS)
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+# Install common tools
+sudo apt install -y curl git unzip
+
+# Install Node.js 22 (LTS)
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 sudo apt install -y nodejs
 
-# Verify
+# Verify versions
 node -v
 npm -v
 ```
 
 ### 2. Setup Project
 ```bash
-# Clone your repository (or upload files)
+# Clone your repository
 git clone <your-repo-url>
 cd myown_portfolio
 
@@ -64,48 +66,74 @@ cd myown_portfolio
 npm install
 
 # Setup Environment Variables
-# Create a .env file and paste your keys (generated in development)
+# Create a .env file and add your secrets
 nano .env
-# Paste: DATABASE_URL="file:./dev.db", SESSION_SECRET=..., TELEGRAM_BOT_TOKEN=..., etc.
 ```
 
-### 3. Build for Production
+**Required .env content:**
+```env
+DATABASE_URL="file:./dev.db"
+# Add other keys like SESSION_SECRET, etc.
+```
+
+### 3. Build & Initialize Database
 ```bash
-# Initialize database (since we use SQLite)
+# Generate Prisma Client
 npx prisma generate
+
+# Initialize SQLite Database (creates dev.db)
 npx prisma db push
 
-# Build the Next.js app
+# Build the Next.js application
 npm run build
 ```
 
-### 4. Run Permanently (PM2)
-Use **PM2** to keep your site running in the background, even if you disconnect.
+### 4. Run with PM2 (Process Manager)
+PM2 keeps your app running in the background and restarts it if it crashes or the server reboots.
 
 ```bash
 # Install PM2 globally
 sudo npm install -g pm2
 
-# Start the application
-# --name "portfolio": Gives it a friendly name
-# -- start: Tells npm to run the 'start' script
+# Start the app
+# --name "portfolio": Friendly name
+# -- start: Executes 'npm run start'
 pm2 start npm --name "portfolio" -- start
 
-# Check status
-pm2 status
-
-# Configure PM2 to auto-start on server reboot
-pm2 startup
-# (Run the command outputted by the previous step)
+# Save PM2 list to respawn on reboot
 pm2 save
+pm2 startup
+# (Run the command output by 'pm2 startup' to finalize)
 ```
 
-### 5. Updates
-When you push new code to GitHub:
+### 5. (Optional) Nginx Reverse Proxy
+To access your app via a domain or IP (port 80) instead of `:3000`.
+
 ```bash
-git pull origin main
-npm install
-npx prisma db push
-npm run build
-pm2 restart portfolio
+sudo apt install -y nginx
+sudo nano /etc/nginx/sites-available/portfolio
+```
+
+**Nginx Config:**
+```nginx
+server {
+    listen 80;
+    server_name your_domain_or_ip;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+```bash
+# Enable site and restart Nginx
+sudo ln -s /etc/nginx/sites-available/portfolio /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
 ```

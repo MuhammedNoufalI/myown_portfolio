@@ -43,13 +43,11 @@ export default async function EditBlog({ params }: PageProps) {
 
                 <div>
                     <label className="block text-sm font-medium mb-2">Content Builder</label>
-                    {/* @ts-expect-error JSON handling */}
                     <BlogContentBuilder name="content" initialContent={blog.content} />
                 </div>
 
                 <div>
-                    {/* @ts-expect-error JSON handling */}
-                    <DynamicList name="references" title="References" initialData={blog.references} />
+                    <DynamicList name="references" title="References" initialData={blog.references || undefined} />
                 </div>
 
                 <div>

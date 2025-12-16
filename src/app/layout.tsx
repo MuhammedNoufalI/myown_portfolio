@@ -35,20 +35,20 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const profile = await prisma.profile.findFirst()
-  const themeColor = (profile as any)?.themeColor || 'purple'
+  const themeColor = profile?.themeColor || 'purple'
   const theme = THEMES[themeColor] || THEMES.purple
 
   console.log('Current Theme:', themeColor, theme); // Debugging
 
   return (
-    <html lang="en" style={{
+    <html lang="en" suppressHydrationWarning style={{
       '--primary-rgb': theme.primary,
       '--secondary-rgb': theme.secondary,
     } as React.CSSProperties}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-100 selection:bg-white/30`}
       >
-        <Navbar logoUrl={(profile as any)?.logoUrl} />
+        <Navbar logoUrl={profile?.logoUrl} />
         {children}
       </body>
     </html>

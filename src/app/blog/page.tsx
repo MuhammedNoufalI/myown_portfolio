@@ -3,24 +3,38 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { Calendar, Tag, Search } from 'lucide-react'
 
-export default async function BlogList() {
+export default async function BlogList(props: {
+    searchParams: Promise<{ q?: string }>
+}) {
+    const searchParams = await props.searchParams
+    const query = searchParams.q
+
     const [posts, profile] = await Promise.all([
         prisma.blog.findMany({
-            where: { published: true },
+            where: {
+                published: true,
+                ...(query ? {
+                    OR: [
+                        { title: { contains: query } },
+                        { content: { contains: query } },
+                        { excerpt: { contains: query } }
+                    ]
+                } : {})
+            },
             orderBy: { createdAt: 'desc' },
         }),
         prisma.profile.findFirst()
     ])
 
-    const blogTitle = (profile as any)?.blogTitle || 'Blog'
-    const blogHeadline = (profile as any)?.blogHeadline || ''
-    const blogGradient = (profile as any)?.blogGradient || 'from-blue-400 to-purple-500'
+    const blogTitle = profile?.blogTitle || 'Blog'
+    const blogHeadline = profile?.blogHeadline || ''
+    const blogGradient = profile?.blogGradient || 'from-blue-400 to-purple-500'
 
     // Get recent 5 posts for sidebar
     const recentPosts = posts.slice(0, 5)
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-[#0a0118]">
+        <div className="min-h-screen bg-gray-50 dark:bg-[#0a0118] pt-16">
             {/* Header */}
             <header className="bg-white dark:bg-[#120822] border-b border-gray-200 dark:border-gray-800 py-8 sm:py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -95,6 +109,7 @@ export default async function BlogList() {
                                     type="text"
                                     name="q"
                                     placeholder="Search posts..."
+                                    defaultValue={query}
                                     className="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
                                 />
                                 <button
