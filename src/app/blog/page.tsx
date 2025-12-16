@@ -2,6 +2,7 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { Calendar, Tag, Search } from 'lucide-react'
+import { Blog } from '@prisma/client'
 
 export default async function BlogList(props: {
     searchParams: Promise<{ q?: string }>
@@ -60,7 +61,7 @@ export default async function BlogList(props: {
                                 <p className="text-sm mt-2">Admin needs to publish some content.</p>
                             </div>
                         ) : (
-                            posts.map((post) => (
+                            posts.map((post: Blog) => (
                                 <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
                                     <article className="bg-white dark:bg-[#120822] border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:shadow-lg hover:border-purple-500/30 transition-all">
                                         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
@@ -125,7 +126,7 @@ export default async function BlogList(props: {
                         <div className="bg-white dark:bg-[#120822] border border-gray-200 dark:border-gray-800 rounded-lg p-6">
                             <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">Recent Posts</h3>
                             <div className="space-y-4">
-                                {recentPosts.map((post) => (
+                                {recentPosts.map((post: Blog) => (
                                     <Link
                                         key={post.id}
                                         href={`/blog/${post.slug}`}
