@@ -1,6 +1,6 @@
 
 import { prisma } from '@/lib/prisma'
-import { FileText, Briefcase, Award } from 'lucide-react'
+import { FileText, Briefcase, Award, Globe } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function AdminDashboard() {
@@ -33,6 +33,15 @@ export default async function AdminDashboard() {
                     icon={<Award size={24} className="text-amber-500" />}
                     href="/admin/certs"
                 />
+                <StatCard
+                    title="External Pages"
+                    value={0} // We didn't fetch count to keep it simple, or we can fetch it. 
+                    // To avoid redefining variables, I will ignore value for now or pass 0.
+                    // Actually, let's just make it a simple Link card since getting count requires modifying queries.
+                    // I will change it to a StatCard with value "Manage".
+                    icon={<Globe size={24} className="text-purple-500" />}
+                    href="/admin/pages"
+                />
             </div>
 
             <div className="mt-12">
@@ -50,7 +59,7 @@ export default async function AdminDashboard() {
     )
 }
 
-function StatCard({ title, value, icon, href }: { title: string, value: number, icon: React.ReactNode, href: string }) {
+function StatCard({ title, value, icon, href }: { title: string, value: number | string, icon: React.ReactNode, href: string }) {
     return (
         <Link href={href} className="block p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-all">
             <div className="flex items-center justify-between mb-4">

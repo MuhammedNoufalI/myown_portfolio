@@ -29,7 +29,11 @@ export default async function Home() {
               <img
                 src={profile.imageUrl}
                 alt={profile.fullName}
-                className="relative w-64 h-64 sm:w-[500px] sm:h-[500px] object-contain sm:drop-shadow-2xl mix-blend-lighten"
+                className="relative w-64 h-64 sm:w-[500px] sm:h-[500px] object-contain sm:drop-shadow-2xl"
+                style={{
+                  maskImage: 'radial-gradient(circle at center, black 50%, transparent 95%)',
+                  WebkitMaskImage: 'radial-gradient(circle at center, black 50%, transparent 95%)'
+                }}
               />
             ) : (
               <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full bg-gray-800/50 flex items-center justify-center text-5xl font-bold text-gray-500">

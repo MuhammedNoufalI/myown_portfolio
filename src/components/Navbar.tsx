@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 
-export default function Navbar({ logoUrl }: { logoUrl?: string | null }) {
+export default function Navbar({ logoUrl, externalPages = [] }: { logoUrl?: string | null, externalPages?: any[] }) {
     const [isOpen, setIsOpen] = useState(false)
     const pathname = usePathname()
 
@@ -16,6 +16,10 @@ export default function Navbar({ logoUrl }: { logoUrl?: string | null }) {
         { href: '/', label: 'Home' },
         { href: '/journey', label: 'Journey' },
         { href: '/blog', label: 'Blog' },
+        ...externalPages.map(page => ({
+            href: `/showcase/${page.id}`,
+            label: page.title
+        })),
         { href: '/contact', label: 'Contact' },
     ]
 

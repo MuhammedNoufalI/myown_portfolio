@@ -34,7 +34,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const profile = await prisma.profile.findFirst()
+  const [profile, externalPages] = await Promise.all([
+    prisma.profile.findFirst(),
+    prisma.externalPage.findMany({ orderBy: { order: 'asc' } }) // Ensure ordering
+  ])
+
   const themeColor = profile?.themeColor || 'purple'
   const theme = THEMES[themeColor] || THEMES.purple
 
@@ -49,7 +53,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-100 selection:bg-white/30`}
       >
         <ParticlesBackground />
-        <Navbar logoUrl={profile?.logoUrl} />
+        <Navbar logoUrl={profile?.logoUrl} externalPages={externalPages} />
         {children}
       </body>
     </html>

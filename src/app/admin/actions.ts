@@ -197,3 +197,27 @@ export async function markMessageRead(id: string) {
         revalidatePath('/admin/messages')
     }
 }
+
+// --- External Pages ---
+
+export async function createExternalPage(formData: FormData) {
+    const title = formData.get('title') as string
+    const url = formData.get('url') as string
+
+    await prisma.externalPage.create({
+        data: {
+            title,
+            url
+        }
+    })
+
+    revalidatePath('/')
+    revalidatePath('/admin/pages')
+    redirect('/admin/pages')
+}
+
+export async function deleteExternalPage(id: string) {
+    await prisma.externalPage.delete({ where: { id } })
+    revalidatePath('/')
+    revalidatePath('/admin/pages')
+}
