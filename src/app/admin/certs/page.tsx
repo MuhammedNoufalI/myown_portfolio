@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
 import { deleteCertification } from './actions'
+import { Certification } from '@prisma/client'
 
 export default async function AdminCerts() {
     const certs = await prisma.certification.findMany({
@@ -31,7 +32,7 @@ export default async function AdminCerts() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                        {certs.map((cert) => (
+                        {certs.map((cert: Certification) => (
                             <tr key={cert.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
                                 <td className="px-6 py-4">
                                     {cert.imageUrl && (

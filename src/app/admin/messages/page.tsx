@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { deleteMessage, markMessageRead } from '../actions'
 import { Trash2, Mail, MailOpen, Calendar } from 'lucide-react'
+import { Message } from '@prisma/client'
 
 export default async function AdminMessages() {
     // Cast prisma to any to avoid type errors until client is regenerated
@@ -19,7 +20,7 @@ export default async function AdminMessages() {
                 </div>
             ) : (
                 <div className="space-y-4">
-                    {messages.map((msg: any) => (
+                    {messages.map((msg: Message) => (
                         <div key={msg.id} className={`p-6 rounded-xl border transition-all ${msg.read ? 'bg-gray-50 border-gray-200' : 'bg-white border-blue-200 shadow-sm border-l-4 border-l-blue-500'}`}>
                             <div className="flex justify-between items-start mb-4">
                                 <div>

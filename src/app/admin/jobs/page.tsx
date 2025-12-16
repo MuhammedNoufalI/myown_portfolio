@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
 import { deleteJob } from '../actions'
+import { Job } from '@prisma/client'
 
 export default async function AdminJobs() {
     const jobs = await prisma.job.findMany({
@@ -30,7 +31,7 @@ export default async function AdminJobs() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                        {jobs.map((job) => (
+                        {jobs.map((job: Job) => (
                             <tr key={job.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
                                 <td className="px-6 py-4 font-medium">{job.company}</td>
                                 <td className="px-6 py-4 text-gray-600 dark:text-gray-300">{job.position}</td>
