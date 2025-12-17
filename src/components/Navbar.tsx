@@ -17,8 +17,9 @@ export default function Navbar({ logoUrl, externalPages = [] }: { logoUrl?: stri
         { href: '/journey', label: 'Journey' },
         { href: '/blog', label: 'Blog' },
         ...externalPages.map(page => ({
-            href: `/showcase/${page.id}`,
-            label: page.title
+            href: page.url,
+            label: page.title,
+            external: true
         })),
         { href: '/contact', label: 'Contact' },
     ]
@@ -42,6 +43,7 @@ export default function Navbar({ logoUrl, externalPages = [] }: { logoUrl?: stri
                                 <Link
                                     key={link.href}
                                     href={link.href}
+                                    target={(link as any).external ? "_blank" : undefined}
                                     className={`relative px-3 py-2 text-sm font-medium transition-colors hover:text-blue-400 ${pathname === link.href ? 'text-blue-400' : 'text-gray-300'
                                         }`}
                                 >
@@ -75,6 +77,7 @@ export default function Navbar({ logoUrl, externalPages = [] }: { logoUrl?: stri
                                 key={link.href}
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
+                                target={(link as any).external ? "_blank" : undefined}
                                 className={`block px-3 py-2 rounded-md text-base font-medium ${pathname === link.href
                                     ? 'bg-blue-500/10 text-blue-400'
                                     : 'text-gray-300 hover:bg-white/5 hover:text-white'
