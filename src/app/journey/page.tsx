@@ -12,9 +12,25 @@ export default async function Journey() {
         orderBy: { issueDate: 'desc' },
     })
 
+    const profile = await prisma.profile.findFirst()
+
     return (
         <div className="min-h-screen p-8 sm:p-20 font-[family-name:var(--font-geist-sans)] max-w-5xl mx-auto pt-24">
-            <h1 className="text-3xl sm:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-purple-500">My Professional Journey</h1>
+            <div className="flex flex-col md:flex-row justify-between items-center mb-12">
+                <h1 className="text-3xl sm:text-4xl font-bold text-center md:text-left bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-purple-500">My Professional Journey</h1>
+
+                {profile?.cvUrl && (
+                    <a
+                        href={profile.cvUrl}
+                        target="_blank"
+                        download
+                        className="mt-4 md:mt-0 flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full transition-all text-white font-medium backdrop-blur-sm group"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 transition-transform"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
+                        Download CV
+                    </a>
+                )}
+            </div>
 
             <section className="mb-20">
                 <h2 className="text-2xl font-semibold mb-8 flex items-center gap-3 border-b pb-4 border-gray-800 text-gray-100">

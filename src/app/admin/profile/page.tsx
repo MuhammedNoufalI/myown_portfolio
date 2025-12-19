@@ -26,6 +26,12 @@ async function updateProfile(formData: FormData) {
         logoUrl = await saveFile(logoFile)
     }
 
+    const cvFile = formData.get('cv') as File | null
+    let cvUrl = undefined
+    if (cvFile && cvFile.size > 0) {
+        cvUrl = await saveFile(cvFile)
+    }
+
     await (prisma as any).profile.update({
         where: { id },
         data: {
@@ -39,6 +45,7 @@ async function updateProfile(formData: FormData) {
             themeColor,
             imageUrl,
             logoUrl,
+            cvUrl,
             blogTitle: formData.get('blogTitle') as string,
             blogHeadline: formData.get('blogHeadline') as string,
             blogGradient: formData.get('blogGradient') as string,
