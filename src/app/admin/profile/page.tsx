@@ -41,26 +41,30 @@ async function updateProfile(formData: FormData) {
         console.log('No new CV file to save.')
     }
 
+    const updateData = {
+        fullName,
+        headline,
+        bio,
+        email,
+        phone,
+        linkedinUrl,
+        githubUrl,
+        themeColor,
+        imageUrl,
+        logoUrl,
+        cvUrl,
+        cvDisplayName: formData.get('cvDisplayName') as string,
+        blogTitle: formData.get('blogTitle') as string,
+        blogHeadline: formData.get('blogHeadline') as string,
+        blogGradient: formData.get('blogGradient') as string,
+    }
+
+    console.log('Prisma Update Data:', JSON.stringify(updateData, null, 2))
+
     try {
         await (prisma as any).profile.update({
             where: { id },
-            data: {
-                fullName,
-                headline,
-                bio,
-                email,
-                phone,
-                linkedinUrl,
-                githubUrl,
-                themeColor,
-                imageUrl,
-                logoUrl,
-                cvUrl,
-                cvDisplayName: formData.get('cvDisplayName') as string,
-                blogTitle: formData.get('blogTitle') as string,
-                blogHeadline: formData.get('blogHeadline') as string,
-                blogGradient: formData.get('blogGradient') as string,
-            },
+            data: updateData,
         })
 
         revalidatePath('/', 'layout') // Revalidate layout to apply theme color
