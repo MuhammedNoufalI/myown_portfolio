@@ -137,3 +137,24 @@ sudo ln -s /etc/nginx/sites-available/portfolio /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
 ```
+
+### 6. Updating the Application (Fix 502 Errors)
+When pulling new changes (especially DB changes), run:
+```bash
+# Stop app (optional)
+pm2 stop portfolio1
+
+# Get code & deps
+git pull
+npm install
+
+# Update Database & Client
+npx prisma generate
+npx prisma migrate deploy
+
+# Rebuild
+npm run build
+
+# Restart
+pm2 restart portfolio1
+```

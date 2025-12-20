@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeRaw from 'rehype-raw'
 import 'highlight.js/styles/github-dark.css'
+import { Certification } from '@prisma/client'
 
 export default async function Home() {
   const profile = await prisma.profile.findFirst()
