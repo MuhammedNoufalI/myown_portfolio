@@ -11,6 +11,7 @@ interface ProfileFormProps {
 }
 
 export default function ProfileForm({ profile, updateProfileAction }: ProfileFormProps) {
+    console.log('ProfileForm Client Props:', profile)
     const [imageSrc, setImageSrc] = useState<string | null>(null)
     const [croppedBlob, setCroppedBlob] = useState<Blob | null>(null)
     const [previewUrl, setPreviewUrl] = useState<string | null>(profile.imageUrl)
