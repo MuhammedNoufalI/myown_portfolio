@@ -46,6 +46,7 @@ async function updateProfile(formData: FormData) {
             imageUrl,
             logoUrl,
             cvUrl,
+            cvDisplayName: formData.get('cvDisplayName') as string,
             blogTitle: formData.get('blogTitle') as string,
             blogHeadline: formData.get('blogHeadline') as string,
             blogGradient: formData.get('blogGradient') as string,

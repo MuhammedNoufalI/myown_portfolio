@@ -139,6 +139,16 @@ export default function ProfileForm({ profile, updateProfileAction }: ProfileFor
                                 <p className="text-xs text-gray-500 mt-1">PDF format only.</p>
                             </div>
                         </div>
+                        <div className="mt-2">
+                            <label className="block text-xs font-medium mb-1 text-gray-500">Download Filename (Optional)</label>
+                            <input
+                                name="cvDisplayName"
+                                type="text"
+                                defaultValue={(profile as any).cvDisplayName || ''}
+                                placeholder="e.g. My_CV_2024.pdf"
+                                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 bg-gray-50 focus:border-blue-500 outline-none"
+                            />
+                        </div>
                     </div>
 
                     <div className="col-span-2 md:col-span-1">

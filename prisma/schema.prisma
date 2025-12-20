@@ -25,6 +25,7 @@ model Profile {
   githubUrl    String?
   imageUrl     String? // New field
   cvUrl        String? // PDF Resume
+  cvDisplayName String? // Download filename
   logoUrl      String? // Website Logo
   themeColor   String @default("purple")
   twitterUrl   String?
