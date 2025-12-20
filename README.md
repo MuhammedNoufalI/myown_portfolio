@@ -156,5 +156,7 @@ npx prisma migrate deploy
 npm run build
 
 # Restart
+# Restart
 pm2 restart portfolio1
 ```
+*Note: The application is configured to run on port 3021 (CloudPanel default).*
