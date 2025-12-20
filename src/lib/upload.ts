@@ -1,6 +1,25 @@
 
-import { writeFile, mkdir } from 'fs/promises'
+import { writeFile, mkdir, unlink, access } from 'fs/promises'
 import { join } from 'path'
+
+export async function deleteFile(fileUrl: string): Promise<void> {
+    if (!fileUrl) return
+
+    // Extract filename from URL (e.g. /uploads/123.pdf -> 123.pdf)
+    const filename = fileUrl.split('/').pop()
+    if (!filename) return
+
+    const filepath = join(process.cwd(), 'public', 'uploads', filename)
+
+    try {
+        await access(filepath) // Check if exists
+        await unlink(filepath) // Delete
+        console.log(`Deleted old file: ${filepath}`)
+    } catch (error) {
+        console.error(`Failed to delete file ${filepath}:`, error)
+        // Ignore if file doesn't exist
+    }
+}
 
 export async function saveFile(file: File): Promise<string> {
     const bytes = await file.arrayBuffer()

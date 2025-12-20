@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
-import { saveFile } from '@/lib/upload'
+import { saveFile, deleteFile } from '@/lib/upload'
 
 async function updateProfile(formData: FormData) {
     'use server'
@@ -32,6 +32,13 @@ async function updateProfile(formData: FormData) {
     let cvUrl = undefined
     if (cvFile && cvFile.size > 0) {
         try {
+            // Check for existing profile to replace old file
+            const currentProfile = await prisma.profile.findFirst({ select: { cvUrl: true } })
+            if (currentProfile?.cvUrl) {
+                console.log('Deleting old CV:', currentProfile.cvUrl)
+                await deleteFile(currentProfile.cvUrl)
+            }
+
             cvUrl = await saveFile(cvFile)
             console.log('CV Saved to:', cvUrl)
         } catch (err) {
