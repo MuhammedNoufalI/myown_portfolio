@@ -10,6 +10,9 @@
 !.yarn/releases
 
 # Local Docker Environment
+*.db
+*.sqlite
+*.sqlite3
 Dockerfile
 docker-compose.yml
 LOCAL_TESTING.md
