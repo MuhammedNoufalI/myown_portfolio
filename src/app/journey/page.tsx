@@ -20,6 +20,7 @@ export default async function Journey() {
             <div className="flex flex-col md:flex-row justify-between items-center mb-12">
                 <h1 className="text-3xl sm:text-4xl font-bold text-center md:text-left bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-purple-500">My Professional Journey</h1>
 
+                {/* CV Download Disabled (Server 404 Issue)
                 {profile?.cvUrl && (
                     <a
                         href={profile.cvUrl}
@@ -31,6 +32,7 @@ export default async function Journey() {
                         Download CV {profile.cvDisplayName ? `(${profile.cvDisplayName})` : ''}
                     </a>
                 )}
+                */}
             </div>
 
             <section className="mb-20">

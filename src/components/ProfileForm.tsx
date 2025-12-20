@@ -130,6 +130,7 @@ export default function ProfileForm({ profile, updateProfileAction }: ProfileFor
                         </div>
                     </div>
 
+                    {/* CV Upload Disabled
                     <div className="col-span-2">
                         <label className="block text-sm font-medium mb-2 text-gray-700">CV / Resume (PDF)</label>
                         <div className="flex gap-4 items-center mb-2">
@@ -160,6 +161,7 @@ export default function ProfileForm({ profile, updateProfileAction }: ProfileFor
                             />
                         </div>
                     </div>
+                    */}
 
                     <div className="col-span-2 md:col-span-1">
                         <label className="block text-sm font-medium mb-2 text-gray-700">Full Name</label>
