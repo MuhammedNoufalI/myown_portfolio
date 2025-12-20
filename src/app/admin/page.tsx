@@ -22,6 +22,7 @@ export default function AdminLogin() {
         })
 
         if (res.ok) {
+            router.refresh()
             router.push('/admin/dashboard')
         } else {
             setError('Invalid password')

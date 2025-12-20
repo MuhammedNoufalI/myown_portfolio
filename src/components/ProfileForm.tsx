@@ -1,18 +1,21 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import ImageCropper from './ImageCropper'
 import MarkdownEditor from './MarkdownEditor'
 
 interface ProfileFormProps {
     profile: any
-    updateProfileAction: (formData: FormData) => Promise<void>
+    updateProfileAction: (formData: FormData) => Promise<{ success: boolean; error?: string }>
 }
 
 export default function ProfileForm({ profile, updateProfileAction }: ProfileFormProps) {
     const [imageSrc, setImageSrc] = useState<string | null>(null)
     const [croppedBlob, setCroppedBlob] = useState<Blob | null>(null)
     const [previewUrl, setPreviewUrl] = useState<string | null>(profile.imageUrl)
+    const router = useRouter()
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const fileInputRef = useRef<HTMLInputElement>(null)
 
     const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +26,6 @@ export default function ProfileForm({ profile, updateProfileAction }: ProfileFor
                 setImageSrc(reader.result as string)
             })
             reader.readAsDataURL(file)
-            // Reset input so same file selection triggers change again if needed
             e.target.value = ''
         }
     }
@@ -36,15 +38,22 @@ export default function ProfileForm({ profile, updateProfileAction }: ProfileFor
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        setIsSubmitting(true)
         const formData = new FormData(e.currentTarget)
 
-        // If we have a cropped blob, append it as 'image'
         if (croppedBlob) {
             formData.set('image', croppedBlob, 'profile.jpg')
         }
-        // If user didn't pick a new file, the file input is empty, handled by server action (checks size > 0)
 
-        await updateProfileAction(formData)
+        const result = await updateProfileAction(formData)
+        setIsSubmitting(false)
+
+        if (result && result.success) {
+            alert('Profile updated successfully!')
+            router.refresh()
+        } else {
+            alert('Error updating profile: ' + (result?.error || 'Unknown error'))
+        }
     }
 
     return (

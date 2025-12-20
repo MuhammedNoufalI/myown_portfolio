@@ -32,30 +32,37 @@ async function updateProfile(formData: FormData) {
         cvUrl = await saveFile(cvFile)
     }
 
-    await (prisma as any).profile.update({
-        where: { id },
-        data: {
-            fullName,
-            headline,
-            bio,
-            email,
-            phone,
-            linkedinUrl,
-            githubUrl,
-            themeColor,
-            imageUrl,
-            logoUrl,
-            cvUrl,
-            cvDisplayName: formData.get('cvDisplayName') as string,
-            blogTitle: formData.get('blogTitle') as string,
-            blogHeadline: formData.get('blogHeadline') as string,
-            blogGradient: formData.get('blogGradient') as string,
-        },
-    })
+    try {
+        await (prisma as any).profile.update({
+            where: { id },
+            data: {
+                fullName,
+                headline,
+                bio,
+                email,
+                phone,
+                linkedinUrl,
+                githubUrl,
+                themeColor,
+                imageUrl,
+                logoUrl,
+                cvUrl,
+                cvDisplayName: formData.get('cvDisplayName') as string,
+                blogTitle: formData.get('blogTitle') as string,
+                blogHeadline: formData.get('blogHeadline') as string,
+                blogGradient: formData.get('blogGradient') as string,
+            },
+        })
 
-    revalidatePath('/', 'layout') // Revalidate layout to apply theme color
-    revalidatePath('/contact')
-    revalidatePath('/admin/profile')
+        revalidatePath('/', 'layout') // Revalidate layout to apply theme color
+        revalidatePath('/contact')
+        revalidatePath('/admin/profile')
+
+        return { success: true }
+    } catch (error) {
+        console.error('Profile Update Error:', error)
+        return { success: false, error: 'Failed to update profile. Check server logs.' }
+    }
 }
 
 import ProfileForm from '@/components/ProfileForm'
