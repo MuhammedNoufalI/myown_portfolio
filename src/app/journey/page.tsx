@@ -4,6 +4,7 @@ import { Briefcase, Calendar, MapPin, Award } from 'lucide-react'
 import { Job, Certification } from '@prisma/client'
 
 export default async function Journey() {
+    // Re-enabled CV download feature
     const jobs = await prisma.job.findMany({
         orderBy: { startDate: 'desc' },
     })
