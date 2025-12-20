@@ -18,6 +18,21 @@ async function main() {
         console.log('imageUrl:', profile.imageUrl)
     }
 
+    // 1.5 Check Root 'uploads' symlink (Critical for Nginx)
+    const rootUploads = path.join(process.cwd(), 'uploads')
+    console.log('Root uploads path:', rootUploads)
+    try {
+        const stats = fs.lstatSync(rootUploads)
+        console.log('Root uploads exists?', 'Yes')
+        console.log('Is Symlink?', stats.isSymbolicLink() ? 'Yes' : 'No')
+        console.log('Is Directory?', stats.isDirectory() ? 'Yes' : 'No')
+        if (stats.isSymbolicLink()) {
+            console.log('Symlink points to:', fs.readlinkSync(rootUploads))
+        }
+    } catch (e) {
+        console.log('Root uploads exists?', 'NO (This is the problem!)')
+    }
+
     // 2. Check Uploads Directory
     const uploadsDir = path.join(process.cwd(), 'public', 'uploads')
     console.log('Uploads Dir:', uploadsDir)
