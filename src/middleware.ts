@@ -16,7 +16,7 @@ export function middleware(request: NextRequest) {
 
         // If accessing a slug directly (e.g., cybermavericx.com/my-post)
         // Rewrite to /blog/[slug]
-        if (!pathname.startsWith('/blog') && !pathname.startsWith('/_next') && !pathname.startsWith('/api')) {
+        if (!pathname.startsWith('/blog') && !pathname.startsWith('/_next') && !pathname.startsWith('/api') && !pathname.startsWith('/uploads')) {
             return NextResponse.rewrite(new URL(`/blog${pathname}`, request.url))
         }
     }
