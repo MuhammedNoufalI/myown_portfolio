@@ -27,9 +27,18 @@ async function updateProfile(formData: FormData) {
     }
 
     const cvFile = formData.get('cv') as File | null
+    console.log('CV File received:', cvFile ? { name: cvFile.name, size: cvFile.size, type: cvFile.type } : 'null')
+
     let cvUrl = undefined
     if (cvFile && cvFile.size > 0) {
-        cvUrl = await saveFile(cvFile)
+        try {
+            cvUrl = await saveFile(cvFile)
+            console.log('CV Saved to:', cvUrl)
+        } catch (err) {
+            console.error('CV Save Error:', err)
+        }
+    } else {
+        console.log('No new CV file to save.')
     }
 
     try {
