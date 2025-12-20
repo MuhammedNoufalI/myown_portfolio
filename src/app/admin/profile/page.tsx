@@ -82,6 +82,7 @@ import ProfileForm from '@/components/ProfileForm'
 
 export default async function AdminProfile() {
     const profile = await prisma.profile.findFirst()
+    console.log('AdminProfile RENDER:', profile ? { id: profile.id, cvUrl: profile.cvUrl } : 'No Profile')
 
     if (!profile) return <div>No profile found. Seed DB first.</div>
 

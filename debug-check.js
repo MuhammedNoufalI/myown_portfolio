@@ -30,6 +30,18 @@ async function main() {
         console.log('Uploads directory DOES NOT exist!')
     }
 
+    if (profile && profile.cvUrl) {
+        const fileUrl = `http://localhost:3021${profile.cvUrl}`
+        console.log(`Checking HTTP access: ${fileUrl}`)
+        try {
+            const res = await fetch(fileUrl)
+            console.log(`HTTP Status: ${res.status}`)
+            console.log(`Content-Type: ${res.headers.get('content-type')}`)
+        } catch (err) {
+            console.error('HTTP Check Failed:', err.message)
+        }
+    }
+
     console.log('--- DIAGNOSTIC END ---')
 }
 
