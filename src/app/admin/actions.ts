@@ -147,36 +147,12 @@ export async function submitMessage(formData: FormData) {
     })
 
     // Telegram Notification
-    const botToken = process.env.TELEGRAM_BOT_TOKEN
-    const chatId = process.env.TELEGRAM_CHAT_ID
-
-    console.log('[Telegram Debug] Env Vars:', {
-        hasToken: !!botToken,
-        hasChatId: !!chatId,
-        tokenStart: botToken ? botToken.substring(0, 5) : 'N/A'
-    })
-
-    if (botToken && chatId) {
-        try {
-            const text = `📩 *New Contact Message*\n\n*Name:* ${name}\n*Email:* ${email}\n\n*Message:*\n${content}`
-            const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: text,
-                    parse_mode: 'Markdown'
-                })
-            })
-
-            const resText = await response.text()
-            console.log('[Telegram Debug] API Response:', response.status, resText)
-
-        } catch (error) {
-            console.error('[Telegram Debug] Failed to send Telegram notification:', error)
-        }
-    } else {
-        console.warn('[Telegram Debug] Missing Telegram keys in .env')
+    try {
+        const text = `📩 *New Contact Message*\n\n*Name:* ${name}\n*Email:* ${email}\n\n*Message:*\n${content}`
+        const { sendTelegramNotification } = await import('@/lib/telegram')
+        await sendTelegramNotification(text)
+    } catch (error) {
+        console.error('Failed to send Telegram notification:', error)
     }
 
     revalidatePath('/admin/messages')

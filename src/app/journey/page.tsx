@@ -20,19 +20,16 @@ export default async function Journey() {
             <div className="flex flex-col md:flex-row justify-between items-center mb-12">
                 <h1 className="text-3xl sm:text-4xl font-bold text-center md:text-left bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-purple-500">My Professional Journey</h1>
 
-                {/* CV Download Disabled (Server 404 Issue)
+                {/* CV Download Enabled */}
                 {profile?.cvUrl && (
                     <a
-                        href={profile.cvUrl}
-                        target="_blank"
-                        download={profile.cvDisplayName || true}
+                        href="/api/download/cv"
                         className="mt-4 md:mt-0 flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full transition-all text-white font-medium backdrop-blur-sm group"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 transition-transform"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
                         Download CV {profile.cvDisplayName ? `(${profile.cvDisplayName})` : ''}
                     </a>
                 )}
-                */}
             </div>
 
             <section className="mb-20">
